@@ -26,7 +26,7 @@ export default {
     },
     data: function() {
         return {
-            NUMBER_OF_ITEMS: 20,
+            NUMBER_OF_ITEMS: 50,
             response: undefined,
             pageIndexNumber: 0,
             photos: []
@@ -46,7 +46,7 @@ export default {
             const photoIndex = this.photos.findIndex(photo => photo.id === id);
             this.photos.splice(photoIndex, 1);
         },
-        handleScroll: function(event) {
+        handleScroll: function() {
             if (hasAlmostReachedBottom()) {
                 this.updatePhotos();
             }
