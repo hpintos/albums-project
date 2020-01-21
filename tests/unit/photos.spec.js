@@ -32,7 +32,6 @@ describe('Photos.vue', () => {
 
   it('renders correctly when image is added', () => {
     wrapper.setData({ photos: [photo]})
-    console.log(wrapper.html());
     expect(wrapper.find('.photo-component').exists()).to.be.true
   })
 
