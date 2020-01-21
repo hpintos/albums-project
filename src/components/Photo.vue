@@ -1,6 +1,6 @@
 
 <template>    
-    <div class="m-1" v-on:click="deletePhoto(photo.id)">
+    <div class="photo-component m-1" v-on:click="deletePhoto(photo.id)">
         <img v-bind:src="photo.thumbnailUrl" /> 
     </div>
 </template>

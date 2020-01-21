@@ -13,7 +13,7 @@ const wrapper = shallowMount(Photo, {
 describe('Photo.vue', () => {
 
   it('renders photo when passed', () => {
-    expect(wrapper.html()).contain('<div class="m-1"><img src="some/url"></div>');
+    expect(wrapper.find('img[src="some/url"]').exists()).to.be.true;
   })
 
   it('click on photo emit event', () => {

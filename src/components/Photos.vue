@@ -1,7 +1,7 @@
 
 <template>
     <div class="photos-component mb-5">
-        <span v-if="photos.length === 0">No photos were feched yet...</span>
+        <span class="photos-empty-message" v-if="photos.length === 0">No photos were feched yet...</span>
         <div v-if="photos.length !== 0">
             <transition-group name="list" tag="div" class="d-flex flex-row flex-wrap">
                 <Photo class="list-item"
@@ -13,8 +13,7 @@
 </template>
 
 <script>
-import {getPhotos} from '@/services/photos';
-import {debounce, hasAlmostReachedBottom} from '@/utils'
+
 import Photo from '@/components/Photo.vue';
 
 export default {
@@ -23,42 +22,16 @@ export default {
         Photo
     },
     props: {
-    },
-    data: function() {
-        return {
-            NUMBER_OF_ITEMS: 50,
-            response: undefined,
-            pageIndexNumber: 0,
-            photos: []
-        };
+        photos: Array
     },
     methods: {
-        getPhotos: async function () {
-            const response = await getPhotos();
-            this.response = response;
-            this.updatePhotos();
-        },
-        updatePhotos: function() {
-            const dataChunk = this.response.data.slice(this.pageIndexNumber,this.pageIndexNumber += this.NUMBER_OF_ITEMS)
-            this.photos = this.photos.concat(dataChunk);
-        },
         onDeletePhoto: function(id) {
-            const photoIndex = this.photos.findIndex(photo => photo.id === id);
-            this.photos.splice(photoIndex, 1);
-        },
-        handleScroll: function() {
-            if (hasAlmostReachedBottom()) {
-                this.updatePhotos();
-            }
+            this.$emit('deletePhoto', id);
         },
     },
     created: function () {
-        this.getPhotos();
-        window.addEventListener('scroll', debounce(this.handleScroll,250));
+        this.photos = this.photos || [];
     },
-    destroyed: function () {
-        window.removeEventListener('scroll', debounce(this.handleScroll,250));
-    }
 }
 </script>
 
